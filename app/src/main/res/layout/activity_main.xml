@@ -96,5 +96,23 @@
         android:textColor="@color/black"
         android:textSize="24sp"/>
 
+    <Button
+        android:id="@+id/btn_limpar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#BED2F4"
+        android:text="Limpar"
+        android:layout_below="@id/btn_enviar"
+        android:textColor="@color/black"
+        android:textSize="24sp"/>
 
+    <Button
+        android:id="@+id/btn_reiniciar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#F1566E"
+        android:text="Reiniciar"
+        android:layout_below="@id/btn_limpar"
+        android:textColor="@color/black"
+        android:textSize="24sp"/>
 </RelativeLayout>

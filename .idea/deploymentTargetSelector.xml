@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-09-16T19:07:11.317821100Z">
+        <DropdownSelection timestamp="2024-09-16T21:18:54.591392Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\cinth\.android\avd\Virtual_Device.avd" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\cinth\.android\avd\flutter_emulator.avd" />
             </handle>
           </Target>
         </DropdownSelection>

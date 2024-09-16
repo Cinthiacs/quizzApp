@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView todas_questoesTextView;
     Button respA, respB, respC, respD, respE;
     Button btn_enviar;
+    Button btn_limpar;
+    Button btn_reiniciar;
     int pontos = 0;
     int questoes_totais = questionario.questao.length;
     int questao_indice = 0;
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         respD = findViewById(R.id.resp_d);
         respE = findViewById(R.id.resp_e);
         btn_enviar = findViewById(R.id.btn_enviar);
+        btn_limpar = findViewById(R.id.btn_limpar);
+        btn_reiniciar = findViewById(R.id.btn_reiniciar);
 
         respA.setOnClickListener(this);
         respB.setOnClickListener(this);
@@ -48,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         respD.setOnClickListener(this);
         respE.setOnClickListener(this);
         btn_enviar.setOnClickListener(this);
+        btn_limpar.setOnClickListener(this);
+        btn_reiniciar.setOnClickListener(v -> reiniciarQuiz());
 
         todas_questoesTextView.setText("Questões: " + questoes_totais);
         carrega_nova_questao();
@@ -88,33 +94,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         carrega_nova_questao();
     }
 
-
     @Override
-    public void onClick(View view) {
+    public void onClick(View view){
+        Button clickedButton = (Button) view;
+
+        if(clickedButton.getId() == R.id.btn_enviar){
+            if (!resposta_selecionada.isEmpty()) {
+                if (resposta_selecionada.equals(questionario.respostas[questao_indice])) {
+                    pontos++;
+                } else {
+                    clickedButton.setBackgroundColor(Color.MAGENTA);
+                }
+                questao_indice++;
+                carrega_nova_questao();
+            }
+
+        }else if (clickedButton.getId() == R.id.btn_limpar){
+                resposta_selecionada = "";
+                limpa_selecao();
+        }else{
+            resposta_selecionada = clickedButton.getText().toString();
+            clickedButton.setBackgroundColor(Color.RED);
+            limpa_selecao();
+            clickedButton.setBackgroundColor(Color.RED);
+        }
+    }
+
+    private void limpa_selecao(){
         respA.setBackgroundColor(Color.YELLOW);
         respB.setBackgroundColor(Color.YELLOW);
         respC.setBackgroundColor(Color.YELLOW);
         respD.setBackgroundColor(Color.YELLOW);
         respE.setBackgroundColor(Color.YELLOW);
-
-        Button clickedButton = (Button) view;
-
-        if(clickedButton.getId() == R.id.btn_enviar){
-        if (!resposta_selecionada.isEmpty()) {
-            if (resposta_selecionada.equals(questionario.respostas[questao_indice])){
-            pontos++;
-            }else{
-                clickedButton.setBackgroundColor(Color.MAGENTA);
-            }
-            questao_indice++;
-            carrega_nova_questao();
-            }else{
-
-            }
-        }else{
-        resposta_selecionada = clickedButton.getText().toString();
-        clickedButton.setBackgroundColor(Color.RED);
-        }
-
     }
 }
