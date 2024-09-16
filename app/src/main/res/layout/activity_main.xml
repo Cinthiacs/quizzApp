@@ -4,14 +4,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="#E35B5B"
+    android:background="#F1CCCC"
     android:padding="24dp"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/todasquestoes"
+        android:id="@+id/todas_questoes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"/>
+        android:text="Quizz"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:textColor="#0E0E0E"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/questoes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Questão: "
+        android:layout_marginTop="150dp"
+        android:textColor="#0E0E0E"
+        android:textSize="24dp"
+        android:layout_above="@+id/escolhas_layout"
+        android:textStyle="bold"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/escolhas_layout"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/resp_a"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FBFBFB"
+            android:text="Questão A"
+            android:textColor="@color/black"
+            android:textSize="24sp"/>
+
+        <Button
+            android:id="@+id/resp_b"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FBFBFB"
+            android:text="Questão B"
+            android:textColor="@color/black"
+            android:textSize="24sp"/>
+
+        <Button
+            android:id="@+id/resp_c"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FBFBFB"
+            android:text="Questão C"
+            android:textColor="@color/black"
+            android:textSize="24sp"/>
+
+        <Button
+            android:id="@+id/resp_d"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FBFBFB"
+            android:text="Questão D"
+            android:textColor="@color/black"
+            android:textSize="24sp"/>
+
+        <Button
+            android:id="@+id/resp_e"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FBFBFB"
+            android:text="Questão E"
+            android:textColor="@color/black"
+            android:textSize="24sp"/>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_enviar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#C5E490"
+        android:text="Enviar"
+        android:layout_below="@id/escolhas_layout"
+        android:textColor="@color/black"
+        android:textSize="24sp"/>
+
+
 </RelativeLayout>

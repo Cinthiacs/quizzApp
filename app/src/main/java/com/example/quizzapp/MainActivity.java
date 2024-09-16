@@ -1,24 +1,120 @@
 package com.example.quizzapp;
-
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-
+import android.app.AlertDialog;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import android.graphics.Color;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import android.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    TextView questoesTextView;
+    TextView todas_questoesTextView;
+    Button respA, respB, respC, respD, respE;
+    Button btn_enviar;
+    int pontos = 0;
+    int questoes_totais = questionario.questao.length;
+    int questao_indice = 0;
+    String resposta_selecionada = "";
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.todasquestoes), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        todas_questoesTextView = findViewById(R.id.todas_questoes);
+        questoesTextView = findViewById(R.id.questoes);
+        respA = findViewById(R.id.resp_a);
+        respB = findViewById(R.id.resp_b);
+        respC = findViewById(R.id.resp_c);
+        respD = findViewById(R.id.resp_d);
+        respE = findViewById(R.id.resp_e);
+        btn_enviar = findViewById(R.id.btn_enviar);
+
+        respA.setOnClickListener(this);
+        respB.setOnClickListener(this);
+        respC.setOnClickListener(this);
+        respD.setOnClickListener(this);
+        respE.setOnClickListener(this);
+        btn_enviar.setOnClickListener(this);
+
+        todas_questoesTextView.setText("Questões: " + questoes_totais);
+        carrega_nova_questao();
+    }
+
+    private void carrega_nova_questao() {
+        if (questao_indice == questoes_totais) {
+            final_quiz();
+            return;
+        }
+        questoesTextView.setText(questionario.questao[questao_indice]);
+        respA.setText(questionario.escolhas[questao_indice][0]);
+        respB.setText(questionario.escolhas[questao_indice][1]);
+        respC.setText(questionario.escolhas[questao_indice][2]);
+        respD.setText(questionario.escolhas[questao_indice][3]);
+        respE.setText(questionario.escolhas[questao_indice][4]);
+
+        resposta_selecionada = "";
+    }
+
+    private void final_quiz() {
+        String status;
+        if (pontos >= questoes_totais * 0.6) {
+            status = "Passou no teste";
+        }else{
+            status = "Tente de Novo";
+        }
+        new AlertDialog.Builder(this)
+                .setTitle(status)
+                .setMessage("Pontos: "+pontos+" Out of "+questoes_totais)
+                .setPositiveButton("Tente de Novo",((dialog, i) -> reiniciarQuiz()))
+                .setCancelable(false)
+                .show();
+    }
+    private void reiniciarQuiz(){
+        pontos = 0;
+        questao_indice=0;
+        carrega_nova_questao();
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        respA.setBackgroundColor(Color.YELLOW);
+        respB.setBackgroundColor(Color.YELLOW);
+        respC.setBackgroundColor(Color.YELLOW);
+        respD.setBackgroundColor(Color.YELLOW);
+        respE.setBackgroundColor(Color.YELLOW);
+
+        Button clickedButton = (Button) view;
+
+        if(clickedButton.getId() == R.id.btn_enviar){
+        if (!resposta_selecionada.isEmpty()) {
+            if (resposta_selecionada.equals(questionario.respostas[questao_indice])){
+            pontos++;
+            }else{
+                clickedButton.setBackgroundColor(Color.MAGENTA);
+            }
+            questao_indice++;
+            carrega_nova_questao();
+            }else{
+
+            }
+        }else{
+        resposta_selecionada = clickedButton.getText().toString();
+        clickedButton.setBackgroundColor(Color.RED);
+        }
+
     }
 }
