@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         new AlertDialog.Builder(this)
                 .setTitle(status)
-                .setMessage("Pontos: "+pontos+" Out of "+questoes_totais)
+                .setMessage("Acertou: "+pontos+" de: "+questoes_totais)
                 .setPositiveButton("Tente de Novo",((dialog, i) -> reiniciarQuiz()))
                 .setCancelable(false)
                 .show();
@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 questao_indice++;
                 carrega_nova_questao();
+                limpa_selecao();
             }
 
         }else if (clickedButton.getId() == R.id.btn_limpar){
