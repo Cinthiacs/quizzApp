@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     TextView questoesTextView;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int questao_indice = 0;
     String resposta_selecionada = "";
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_limpar.setOnClickListener(this);
         btn_reiniciar.setOnClickListener(v -> reiniciarQuiz());
 
-        todas_questoesTextView.setText("Questões: " + questoes_totais);
+        todas_questoesTextView.setText("Número de Questões: " + questoes_totais);
         carrega_nova_questao();
     }
 
@@ -78,54 +80,61 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String status;
         if (pontos >= questoes_totais * 0.6) {
             status = "Passou no teste";
-        }else{
+        } else {
             status = "Tente de Novo";
         }
         new AlertDialog.Builder(this)
                 .setTitle(status)
-                .setMessage("Acertou: "+pontos+" de: "+questoes_totais)
-                .setPositiveButton("Tente de Novo",((dialog, i) -> reiniciarQuiz()))
+                .setMessage("Acertou: " + pontos + " de " + questoes_totais)
+                .setPositiveButton("Tente de Novo", (dialog, i) -> reiniciarQuiz())
                 .setCancelable(false)
                 .show();
     }
-    private void reiniciarQuiz(){
+
+    private void reiniciarQuiz() {
         pontos = 0;
-        questao_indice=0;
+        questao_indice = 0;
         carrega_nova_questao();
     }
 
     @Override
-    public void onClick(View view){
+    public void onClick(View view) {
         Button clickedButton = (Button) view;
 
-        if(clickedButton.getId() == R.id.btn_enviar){
+        if (clickedButton.getId() == R.id.btn_enviar) {
             if (!resposta_selecionada.isEmpty()) {
-                if (resposta_selecionada.equals(questionario.respostas[questao_indice])) {
-                    pontos++;
-                } else {
-                    clickedButton.setBackgroundColor(Color.MAGENTA);
-                }
-                questao_indice++;
-                carrega_nova_questao();
-                limpa_selecao();
-            }
+                boolean acertou = resposta_selecionada.equals(questionario.respostas[questao_indice]);
 
-        }else if (clickedButton.getId() == R.id.btn_limpar){
-                resposta_selecionada = "";
-                limpa_selecao();
-        }else{
-            resposta_selecionada = clickedButton.getText().toString();
-            clickedButton.setBackgroundColor(Color.RED);
+                String mensagem = acertou ? "Acertou!" : "Errou!";
+                int corBotao = acertou ? Color.GREEN : Color.RED;
+                clickedButton.setBackgroundColor(corBotao);
+
+                new AlertDialog.Builder(this)
+                        .setTitle(acertou ? "Resposta Correta" : "Resposta Incorreta")
+                        .setMessage(mensagem)
+                        .setPositiveButton("Próxima", (dialog, which) -> {
+                            questao_indice++;
+                            carrega_nova_questao();
+                            limpa_selecao();
+                        })
+                        .setCancelable(false)
+                        .show();
+            }
+        } else if (clickedButton.getId() == R.id.btn_limpar) {
+            resposta_selecionada = "";
             limpa_selecao();
-            clickedButton.setBackgroundColor(Color.RED);
+        } else {
+            resposta_selecionada = clickedButton.getText().toString();
+            limpa_selecao();
+            clickedButton.setBackgroundColor(Color.GREEN);
         }
     }
 
-    private void limpa_selecao(){
-        respA.setBackgroundColor(Color.YELLOW);
-        respB.setBackgroundColor(Color.YELLOW);
-        respC.setBackgroundColor(Color.YELLOW);
-        respD.setBackgroundColor(Color.YELLOW);
-        respE.setBackgroundColor(Color.YELLOW);
+    private void limpa_selecao() {
+        respA.setBackgroundColor(Color.GRAY);
+        respB.setBackgroundColor(Color.GRAY);
+        respC.setBackgroundColor(Color.GRAY);
+        respD.setBackgroundColor(Color.GRAY);
+        respE.setBackgroundColor(Color.GRAY);
     }
 }

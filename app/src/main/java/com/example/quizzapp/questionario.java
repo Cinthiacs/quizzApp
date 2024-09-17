@@ -3,11 +3,11 @@ package com.example.quizzapp;
 public class questionario{
 
     public static String questao[]={
-        "Quem Inventou o Telefone?",
-        "Quem Fundou o SBT?",
-        "Quem Fundou a Tesla?",
-        "Qual país tem formato de bota?",
-        "Qual oceano banha o Litoral do Brasil?"
+        "Ciências: Quem Inventou o Telefone?",
+        "Gerais: Quem Fundou o SBT?",
+        "Gerais: Quem Fundou a Tesla?",
+        "Geografia: Qual país tem formato de bota?",
+        "Geografia: Qual oceano banha o Litoral do Brasil?"
     };
     public static String escolhas[][]={
         {"Graham Bell","Einstein","Stephen Hawking","Peter Higgs","Marie Curie"},
