@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     TextView questoesTextView;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void carrega_nova_questao() {
         if (questao_indice == questoes_totais) {
+            Log.d("MainActivity", "Chegou ao final das questões");
             final_quiz();
             return;
         }
@@ -104,7 +106,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (clickedButton.getId() == R.id.btn_enviar) {
             if (!resposta_selecionada.isEmpty()) {
                 boolean acertou = resposta_selecionada.equals(questionario.respostas[questao_indice]);
-
+                if (acertou) {
+                    pontos++;
+                }
                 String mensagem = acertou ? "Acertou!" : "Errou!";
                 int corBotao = acertou ? Color.GREEN : Color.RED;
                 clickedButton.setBackgroundColor(corBotao);

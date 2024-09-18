@@ -25,14 +25,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Questão: "
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="130dp"
         android:textColor="#0E0E0E"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:layout_above="@+id/escolhas_layout"
         android:textStyle="bold"
         android:singleLine="false"
         android:ellipsize="none"
-        android:maxLines="10"
+        android:maxLines="2"
+        android:gravity="center"
         />
     <LinearLayout
         android:layout_width="match_parent"
